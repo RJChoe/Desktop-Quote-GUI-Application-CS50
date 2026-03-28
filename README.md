@@ -1,152 +1,152 @@
-# CS50 Project: Quote Generator
-#### Video Demo:  <URL HERE>
-#### Description: ####
+# Quote Generator
+#### CS50P Final Project — [Video Demo](<https://www.youtube.com/watch?v=qpzolxYkPAM>)
 
-A CS50 project: a Python shell GUI that fetches and displays quotes containing a specific keyword from user input. Uses JSON data, ZenQuotes API, and NLTK for text processing.
+A Python command-line application that fetches and displays quotes matching a user-supplied keyword. Built with the ZenQuotes API, NLTK for natural language processing, and a JSON caching layer to minimize API calls.
 
-## Features:
-- Interactive shell interface for entering keywords  
-- Different quotes returned for the same keyword each time  
-- Filters quotes using NLTK to validate English words  
-- Minimal API overhead with ZenQuotes JSON caching
+---
 
-_Example Usage:_<br>
+## Features
 
-```bash
-python quote_shell.py
-```
+- Interactive shell interface for keyword-based quote search
+- Returns a different quote each run for the same keyword
+- Validates input as a real English word using NLTK WordNet
+- Caches API responses as JSON to reduce redundant network requests
 
-_Quote with exact word included:_ 
+---
 
-***time*** <br>
-_("Don't spend time beating on a wall, hoping to transform it into a door.", 'Coco Chanel')_ <br>
+## Tech Stack
 
-```bash
-python quote_shell.py
-```
+| Layer | Tool |
+|---|---|
+| Language | Python 3.11.8 |
+| NLP / Validation | NLTK 3.8.1 (WordNet, Punkt tokenizer) |
+| Quote Source | ZenQuotes API |
+| Testing | pytest 8.1.1 |
+| HTTP | requests 2.31.0 |
 
-_Quote with exact word included:_
-
-***time*** <br>
-_('Mastery is not a function of genius or talent, it is a function of time and intense focus applied to a particular field of knowledge.', 'Robert Greene')_
-
-## Tips for Users
-
-- Best words for a variety of quotes: man, love, past
-
-- Worst words/(categories): joy, death, (specific foods ex. coffee), (specific animals ex. penguin)
-
-## Directory Structure
-### `CS50-quote-shell`
-- **`quote_shell/`**: Directory of Final Project for CS50P
-    - **`project_dev_py3.12.2/`**: venv folder
-    - `quote_shell.py`: Project Quote Generator main code
-    - `README.md`: Description/instructions for Quote Generator project
-    - `requirements.txt`: Quote Generator project dependencies list
-    - `test_quote_shell.py`: Tests for Quote Generator project
-
-
-## Design Decisions:
-<!-- if you debated certain design choices, explaining why you made them -->
-
-#### Virtual Environment
-Included virtual environment instructions for accessability in README.md
-
-Utilized Virtual Environtmnet:
-- stable/reproduceable environment
-- isolate dependencies between projects
-
-#### User Input Validation
-Utilized to enforce correct syntax (text/string input) and semantic value (English words).
-
-- must be a string/text
-- must be more than 2 letters
-- must be a valid English word
-
-#### NLTK Library
-Utilized:
-- tokenize to parse the user input keyword from quotes for efficiency/reduce error probability
-
-- NTLK library to help filter English words from nonsense
-
-#### User Input
-Chose to allow users to type in their own keyword for search compared to a set category/genre/mood.
-
-Pros:
-- generate quotes from specific search word
-
-Cons:
-- difficult/unrefined validation compared to pre-set category/words
-
-- limited quotes available at a time with the API utilized + the variety of user input words available create such a large scope that it limits successful quote generation
-
-#### Zenquotes API
-decided to use zenquotes API due to it's ability to cache a small JSON response of quotes on a changing/rotating basis for a wider variety of quotes with efficiency compared to large data sets
+---
 
 ## Installation
-Virtual Environment Setup:
-utilize virtual environments to isolate dependencies
 
-#### 1. Install Python
->[!NOTE]
->NLTK requires Python versions 3.7, 3.8, 3.9, 3.10 or 3.11
+> **Prerequisites:** Python 3.11 and `pip` installed on your machine.
 
-[Official Python download documentation](https://www.python.org/downloads/)
+### 1. Clone the repository
 
-
-#### 2. Setting up Virtual Environment
-Create a virtual environment.
-
-[Python Virtual Environment Guide](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/#create-and-use-virtual-environments)
-
-Before installing NLTK; [NLTK documentation for installation](https://www.nltk.org/install.html)
-
-#### 3. Installing Dependencies
-Activate virtual environment.
-
-
-Unix/macOS:
-```
-source my_venv/bin/activate
-```
-Windows:
-```
-my_venv\Scripts\activate
+```bash
+git clone https://github.com/RJChoe/Desktop-Quote-GUI-Application-CS50
+cd CS50-quote-shell
 ```
 
-Install project dependencies using the `requirements.txt` file:
+### 2. Create and activate a virtual environment
+
+**Unix / macOS:**
+```bash
+python -m venv venv
+source venv/bin/activate
 ```
+
+**Windows:**
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+### 3. Install dependencies
+
+```bash
 pip install -r requirements.txt
 ```
-#### Dependencies Notes
-Punkt tokenizer only needs to be downloaded once; **already implemented with download check in project.py code**
 
-NLTK requires Punkt tokenizer:<br>
+> The Punkt tokenizer download is handled automatically on first run — no manual setup needed.
+
+---
+
+## Usage
+
+```bash
+python quote_shell.py
 ```
-import nltk
-nltk.download('punkt')
+
+Enter any English keyword when prompted. The app returns a quote containing that word.
+
+**Example:**
+
+```
+Enter a keyword: time
+
+"Don't spend time beating on a wall, hoping to transform it into a door."
+— Coco Chanel
 ```
 
-# Citations:
-## WordNet
-Princeton University "About WordNet." WordNet. Princeton University. 2010.
+Run it again with the same keyword for a different result:
 
-### Description
-WordNet is an English database concerning words, their meanings, semantic relationships, and properties in linguistics.
+```
+Enter a keyword: time
 
-### Source
-- Website: [WordNet Homepage](https://wordnet.princeton.edu/)
-- Repository: [WordNet GitHub Repository](https://github.com/wordnet/wordnet)
-- Authors: Princeton University Cognitive Science Laboratory
+"Mastery is not a function of genius or talent. It is a function of time and intense focus."
+— Robert Greene
+```
 
-### License
-WordNet is distributed under the [WordNet License](https://wordnet.princeton.edu/license-and-commercial-use).
+**Keywords with the most variety:** `man`, `love`, `past`
 
-## NLTK
-Bird, Steven, Edward Loper and Ewan Klein (2009), Natural Language Processing with Python. O'Reilly Media Inc.
+---
 
-## Python
-Python Software Foundation. (2024). Download Python. Retrieved from https://www.python.org/downloads/
+## Input Validation
 
-## ZenQuotes
-Inspirational quotes provided by <a href="https://zenquotes.io/" target="_blank">ZenQuotes API</a>
+User input is validated at two levels:
+
+- **Syntax** — must be a text string of more than 2 characters
+- **Semantic** — must be a recognized English word (validated via NLTK WordNet)
+
+---
+
+## Design Decisions
+
+### Keyword Search vs. Fixed Categories
+Allowing free-text keyword input gives users direct control over the search, making results more personal and specific. The trade-off is a larger validation burden and a narrower pool of matching quotes for uncommon words — a known limitation of the ZenQuotes API's rotating cache model.
+
+### ZenQuotes API + JSON Caching
+ZenQuotes returns a small, rotating JSON payload of quotes. Caching this response locally reduces redundant API calls and keeps the app fast, while the rotation ensures variety across sessions.
+
+### NLTK for Word Validation
+Rather than maintaining a static word list, NLTK WordNet provides a robust English lexicon for filtering out nonsense input. The Punkt tokenizer is also used to parse quotes for exact keyword matching, reducing false positives.
+
+### Virtual Environment
+All dependencies are pinned in `requirements.txt` for a reproducible environment and clean separation from other Python projects.
+
+---
+
+## Running Tests
+
+```bash
+pytest test_quote_shell.py
+```
+
+---
+
+## Project Structure
+
+```
+CS50-quote-shell/
+├── quote_shell.py          # Main application
+├── test_quote_shell.py     # pytest test suite
+├── requirements.txt        # Pinned dependencies
+└── README.md
+```
+
+---
+
+## Credits & Citations
+
+**WordNet**
+Princeton University. "About WordNet." WordNet. Princeton University. 2010.
+[wordnet.princeton.edu](https://wordnet.princeton.edu/) — [License](https://wordnet.princeton.edu/license-and-commercial-use)
+
+**NLTK**
+Bird, Steven, Edward Loper and Ewan Klein (2009). *Natural Language Processing with Python.* O'Reilly Media Inc.
+
+**ZenQuotes API**
+Inspirational quotes provided by [ZenQuotes API](https://zenquotes.io/)
+
+**Python**
+Python Software Foundation. [python.org/downloads](https://www.python.org/downloads/)
